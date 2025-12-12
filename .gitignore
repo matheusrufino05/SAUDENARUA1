@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.env.*
+.venv/
+venv/
+ENV/
+.python-version
+
+# Packaging
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+*.egg
+
+# Testing & coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+.tox/
+.nox/
+
+# Django
+*.log
+*.pot
+*.mo
+local_settings.py
+db.sqlite3
+*/db.sqlite3
+media/
+staticfiles/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Type checking / cache
+.cache/
+
+# Node (if present for static tooling)
+node_modules/
+
+# Pip
+pip-log.txt
+pip-delete-this-directory.txt
