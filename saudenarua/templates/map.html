@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mapa de UBS e Farmácias Populares</h2>
+<div id="map" style="height:500px;"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+/* ============================    RESET E BASE INSTITUCIONAL    ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+body {
+  background: linear-gradient(180deg, #f4f6f7 0%, #eaf1ef 100%);
+  color: #2d3e40;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+/* ============================    NAVBAR INSTITUCIONAL    ============================ */
+.navbar {
+  background: #006c4f;
+  padding: 18px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff !important;
+  letter-spacing: 0.5px;
+}
+.nav-link {
+  color: #eaffea !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: 0.25s ease;
+}
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+.btn-light {
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+.btn-light:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+/* ============================    TÍTULOS E TEXTOS    ============================ */
+h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #006c4f;
+  letter-spacing: -0.5px;
+}
+.lead {
+  font-size: 1.2rem;
+  color: #6b7a7c;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #006c4f;
+  margin-bottom: 20px;
+}
+/* ============================    CARDS ESTILO PORTAL MÉDICO    ============================ */
+.card-menu {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 28px;
+  border: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.card-menu:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+.card-menu h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #006c4f;
+  margin-bottom: 12px;
+}
+.card-menu p {
+  color: #5f6f70;
+  font-size: 1rem;
+}
+/* ============================    ANIMAÇÃO DE ENTRADA    ============================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.container {
+  animation: fadeUp 0.6s ease forwards;
+}
+/* ============================    RESPONSIVO    ============================ */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  .card-menu {
+    padding: 30px 22px;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+<script>
+var map = L.map('map').setView([-8.05, -34.9], 12);
+
+// mapa padrão
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+// Pontos fictícios
+var pontos = [
+    {nome:"Farmácia Drogasil Santo amaro", lat:-8.054, lng:-34.881},
+    {nome:"Farmácia Pague menos Santo Antônio", lat:-8.061, lng:-34.873},
+    {nome:"Farmácia Popular Casa Forte", lat:-8.033, lng:-34.929},
+    {nome:"Farmácia Drogaria Sao paulo Afogados", lat:-8.082, lng:-34.927},
+    {nome:"Farmácia Drogasil Ibura", lat:-8.128, lng:-34.946},
+    {nome:"Farmácia Diariamente Olinda Centro", lat:-8.008, lng:-34.854},
+    {nome:"Farmácia Permanente Paulista", lat:-7.941, lng:-34.874},
+    {nome:"Farmácia Popular Peixinhos", lat:-8.022, lng:-34.886},
+    {nome:"Farmácia Pague menos Pina", lat:-8.090, lng:-34.888},
+    {nome:"Farmácia Diariamente Várzea", lat:-8.036, lng:-34.951},
+    {nome:"Farmácia Drogasil Boa Vista", lat:-8.060, lng:-34.885},
+    {nome:"Farmácia Pague Menos Boa Viagem", lat:-8.127, lng:-34.906},
+    {nome:"Farmácia Permanente Boa Vista", lat:-8.057, lng:-34.887},
+    {nome:"Farmácia Popular Ibura", lat:-8.129, lng:-34.942},
+    {nome:"Farmácia Drogaria São Paulo Caxangá", lat:-8.036, lng:-34.936},
+    {nome:"Farmácia Pague Menos Arruda", lat:-8.028, lng:-34.894},
+    {nome:"Farmácia Drogasil Imbiribeira", lat:-8.109, lng:-34.915},
+    {nome:"Farmácia Popular Beberibe", lat:-8.000, lng:-34.880},
+    {nome:"Farmácia Permanente Camaragibe Centro", lat:-8.021, lng:-34.978},
+    {nome:"Farmácia Pague Menos Camaragibe", lat:-8.017, lng:-34.980},
+    {nome:"Farmácia Popular Jaboatão Centro", lat:-8.113, lng:-35.015},
+    {nome:"Farmácia Drogasil Prazeres", lat:-8.180, lng:-34.929},
+    {nome:"Farmácia Pague Menos Cavaleiro", lat:-8.144, lng:-35.007},
+    {nome:"Farmácia Popular Rio Doce", lat:-7.987, lng:-34.839},
+    {nome:"Farmácia Drogaria São Paulo Paulista Centro", lat:-7.940, lng:-34.874},
+    {nome:"Farmácia Pague Menos Abreu e Lima", lat:-7.900, lng:-34.916},
+    {nome:"Farmácia Permanente Igarassu Centro", lat:-7.829, lng:-34.907},
+    {nome:"Farmácia Diariamente Peixinhos", lat:-8.016, lng:-34.889},
+    {nome:"Farmácia Pague Menos Espinheiro", lat:-8.037, lng:-34.889},
+    {nome:"Farmácia Drogasil Encruzilhada", lat:-8.038, lng:-34.892},
+
+    // UBS
+    {nome:"UBS Sao jose", lat:-8.076, lng:-34.888},
+    {nome:"UBS Derby", lat:-8.054, lng:-34.899},
+    {nome:"UBS Torrões", lat:-8.073, lng:-34.942},
+    {nome:"UBS Brasília Teimosa", lat:-8.070, lng:-34.900}
+];
+
+pontos.forEach(p => {
+    L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.nome);
+});
+</script>
+{% endblock %}

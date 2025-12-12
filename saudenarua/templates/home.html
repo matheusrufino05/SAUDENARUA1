@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Localize Farmácias Populares e UBS</h2>
+<p>Clique nos marcadores para visualizar informações.</p>
+
+<div id="map"></div>
+
+<script>
+function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {lat: -8.063149, lng: -34.871139}
+    });
+
+    var locs = {{ farmacias|safe }};
+    locs.forEach(f =>{
+        new google.maps.Marker({
+            position:{lat:f.lat, lng:f.lng},
+            map,
+            title:f.nome
+        });
+    })
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE&callback=initMap" async></script>
+
+{% endblock %}

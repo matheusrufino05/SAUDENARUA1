@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Medicamentos</h2>
+<a href="/medicamentos" class="btn btn-success mb-2">+ Adicionar</a>
+
+<table class="table table-striped">
+  <tr><th>Nome</th><th>Código</th><th>Estoque</th><th>Preço (R$)</th></tr>
+  <tr><td>Paracetamol</td><td>001</td><td>120</td><td>8,50</td></tr>
+  <tr><td>Ibuprofeno</td><td>002</td><td>75</td><td>15,90</td></tr>
+  <tr><td>Amoxicilina</td><td>003</td><td>42</td><td>32,00</td></tr>
+  <tr><td>Dipirona</td><td>004</td><td>200</td><td>6,70</td></tr>
+  <tr><td>Omeprazol</td><td>005</td><td>98</td><td>22,50</td></tr>
+  <tr><td>Losartana</td><td>006</td><td>60</td><td>18,40</td></tr>
+  <tr><td>Metformina</td><td>007</td><td>150</td><td>12,30</td></tr>
+  <tr><td>Simvastatina</td><td>008</td><td>33</td><td>28,90</td></tr>
+  <tr><td>Clonazepam</td><td>009</td><td>20</td><td>45,00</td></tr>
+  <tr><td>Prednisona</td><td>010</td><td>85</td><td>19,75</td></tr>
+</table>
+
+<style>
+/* ============================
+   RESET E BASE
+   ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #f4f6f7 0%, #eaf1ef 100%);
+  color: #2d3e40;
+  line-height: 1.6;
+  padding: 30px;
+}
+
+/* ============================
+   TÍTULO
+   ============================ */
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #006c4f;
+  margin-bottom: 20px;
+}
+
+/* ============================
+   BOTÃO ADICIONAR
+   ============================ */
+a.btn {
+  background: #006c4f;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+a.btn:hover {
+  background: #00885c;
+  transform: translateY(-2px);
+}
+
+/* ============================
+   TABELA
+   ============================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+table th {
+  background: #006c4f;
+  color: #fff;
+  text-align: left;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+table tr:hover td {
+  background: #f4fdf7;
+}
+
+/* ============================
+   RESPONSIVO
+   ============================ */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  a.btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+}
+</style>
+{% endblock %}
