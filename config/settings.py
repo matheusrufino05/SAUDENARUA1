@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'saudenarua2',
+    'saudenarua',
 
     # Terceiros
     'crispy_forms',        # para formulários bonitos (se desejar)

@@ -1,12 +1,8 @@
 # Arquivo: saudenarua/urls.py
-from django.contrib import admin
 from django.urls import path
-from . import views
+from ..saudenarua import views
 
 urlpatterns = [
-    # Rota Administrativa
-    path('admin/', admin.site.urls),
-
     # Página Inicial (Index)
     path('', views.index, name='index'),
 
