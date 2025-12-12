@@ -1,7 +1,0 @@
-{
-    "python-envs.pythonProjects": [],
-    "python.analysis.extraPaths": [
-        "./saudenarua/saudenarua2/migrations",
-        "./saudenarua/saudenarua2/migrations"
-    ]
-}
